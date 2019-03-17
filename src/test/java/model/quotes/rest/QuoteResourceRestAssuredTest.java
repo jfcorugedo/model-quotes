@@ -1,7 +1,5 @@
 package model.quotes.rest;
 
-import io.micronaut.http.client.RxHttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
 import io.restassured.http.ContentType;
@@ -35,8 +33,8 @@ public class QuoteResourceRestAssuredTest {
         .then()
             .contentType(ContentType.JSON)
             .statusCode(200)
-            .body("id", equalTo(1))
+            .body("id", greaterThanOrEqualTo(0))
             .and()
-            .body("text", equalTo("Don't leave for tomorrow what you can do today"));
+            .body("text", not(isEmptyOrNullString()));
     }
 }
