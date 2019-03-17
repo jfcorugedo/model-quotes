@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: model.quotes
+---
+testFramework: junit
+sourceLanguage: java
