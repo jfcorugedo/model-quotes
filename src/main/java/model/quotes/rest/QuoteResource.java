@@ -5,7 +5,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import model.quotes.rest.dto.Quote;
 
-@Controller("/quote/random")
+@Controller("/quotes/random")
 public class QuoteResource {
 
     @Get(produces = MediaType.APPLICATION_JSON)

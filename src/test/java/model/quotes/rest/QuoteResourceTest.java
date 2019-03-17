@@ -15,12 +15,12 @@ public class QuoteResourceTest {
 
     @Inject
     @Client("/")
-    RxHttpClient httpClient;
+    private RxHttpClient httpClient;
 
     @Test
     public void getRandomQuote() {
 
-        Quote randomQuote = httpClient.toBlocking().retrieve(HttpRequest.GET("/quote/random"), Quote.class);
+        Quote randomQuote = httpClient.toBlocking().retrieve(HttpRequest.GET("/quotes/random"), Quote.class);
 
         assertAll(
                 () -> assertEquals(1L, randomQuote.getId().longValue()),
