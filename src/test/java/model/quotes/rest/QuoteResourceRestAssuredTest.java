@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @MicronautTest
@@ -21,16 +21,16 @@ public class QuoteResourceRestAssuredTest {
 
         given()
             .accept(ContentType.JSON)
-        .when()
+            .when()
             .get(
                 String.format(
-                        "%s://%s:%d/quotes/random",
-                        embeddedServer.getScheme(),
-                        embeddedServer.getHost(),
-                        embeddedServer.getPort()
+                    "%s://%s:%d/quotes/random",
+                    embeddedServer.getScheme(),
+                    embeddedServer.getHost(),
+                    embeddedServer.getPort()
                 )
             )
-        .then()
+            .then()
             .contentType(ContentType.JSON)
             .statusCode(200)
             .body("id", greaterThanOrEqualTo(0))
