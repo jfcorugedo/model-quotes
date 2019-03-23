@@ -6,7 +6,10 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.MicronautTest;
 import model.quotes.rest.dto.Quote;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import javax.inject.Inject;
 
@@ -23,8 +26,14 @@ public class QuoteResourceTest {
         Quote randomQuote = httpClient.toBlocking().retrieve(HttpRequest.GET("/quotes/random"), Quote.class);
 
         assertAll(
-                () -> assertEquals(1L, randomQuote.getId().longValue()),
-                () -> assertEquals("Don't leave for tomorrow what you can do today", randomQuote.getText())
+                () -> assertThat( randomQuote.getId().longValue(), greaterThanOrEqualTo(0L)),
+                () -> assertThat(
+                        randomQuote.getText(),
+                        allOf(
+                                instanceOf(String.class),
+                                not(isEmptyString())
+                        )
+                )
         );
     }
 }
