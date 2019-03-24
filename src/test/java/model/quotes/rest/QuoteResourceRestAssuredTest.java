@@ -17,14 +17,14 @@ public class QuoteResourceRestAssuredTest {
     private EmbeddedServer embeddedServer;
 
     @Test
-    public void getRandomQuote() {
+    public void getOneQuote() {
 
         given()
             .accept(ContentType.JSON)
             .when()
             .get(
                 String.format(
-                    "%s://%s:%d/quotes/random",
+                    "%s://%s:%d/quotes/2",
                     embeddedServer.getScheme(),
                     embeddedServer.getHost(),
                     embeddedServer.getPort()
@@ -33,8 +33,26 @@ public class QuoteResourceRestAssuredTest {
             .then()
             .contentType(ContentType.JSON)
             .statusCode(200)
-            .body("id", greaterThanOrEqualTo(0))
+            .body("id", equalTo(2))
             .and()
-            .body("text", not(isEmptyOrNullString()));
+            .body("text", equalTo("At the beginning I was listening but..."));
+    }
+
+    @Test
+    public void tryToGetQuoteButNotFound() {
+
+        given()
+            .accept(ContentType.JSON)
+            .when()
+            .get(
+                String.format(
+                    "%s://%s:%d/quotes/456",
+                    embeddedServer.getScheme(),
+                    embeddedServer.getHost(),
+                    embeddedServer.getPort()
+                )
+            )
+            .then()
+            .statusCode(404);
     }
 }

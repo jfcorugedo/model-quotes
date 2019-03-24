@@ -21,17 +21,17 @@ public class QuoteResourceTest {
     private RxHttpClient httpClient;
 
     @Test
-    public void getRandomQuote() {
+    public void getOneQuote() {
 
-        Quote randomQuote = httpClient.toBlocking().retrieve(HttpRequest.GET("/quotes/random"), Quote.class);
+        Quote randomQuote = httpClient.toBlocking().retrieve(HttpRequest.GET("/quotes/2"), Quote.class);
 
         assertAll(
-            () -> assertThat(randomQuote.getId().longValue(), greaterThanOrEqualTo(0L)),
+            () -> assertThat(randomQuote.getId().longValue(), equalTo(2L)),
             () -> assertThat(
                 randomQuote.getText(),
                 allOf(
                     instanceOf(String.class),
-                    not(isEmptyString())
+                    equalTo("At the beginning I was listening but...")
                 )
             )
         );

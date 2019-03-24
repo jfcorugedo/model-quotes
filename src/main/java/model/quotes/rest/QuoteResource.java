@@ -1,15 +1,16 @@
 package model.quotes.rest;
 
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
 import model.quotes.rest.dto.Quote;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-@Controller("/quotes/random")
+@Controller("/quotes")
 public class QuoteResource {
 
     private static final List<Quote> quotes = Arrays.asList(
@@ -19,10 +20,14 @@ public class QuoteResource {
         new Quote().setId(4L).setText("Leave for tomorrow what you can do today because you might not have to do it at all")
     );
 
-    @Get(produces = MediaType.APPLICATION_JSON)
-    public Quote getRandom() {
+    @Get(value = "{id}", produces = MediaType.APPLICATION_JSON)
+    public HttpResponse<Quote> getOne(@PathVariable("id") Long id) {
 
-        Collections.shuffle(quotes);
-        return quotes.get(0);
+        return quotes
+            .stream()
+            .filter(quote -> quote.getId().equals(id))
+            .findAny()
+            .map(HttpResponse::ok)
+            .orElse(HttpResponse.notFound());
     }
 }
