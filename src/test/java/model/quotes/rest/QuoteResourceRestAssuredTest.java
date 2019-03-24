@@ -31,8 +31,8 @@ public class QuoteResourceRestAssuredTest {
                 )
             )
             .then()
-            .contentType(ContentType.JSON)
             .statusCode(200)
+            .contentType(ContentType.JSON)
             .body("id", equalTo(2))
             .and()
             .body("text", equalTo("At the beginning I was listening but..."));
