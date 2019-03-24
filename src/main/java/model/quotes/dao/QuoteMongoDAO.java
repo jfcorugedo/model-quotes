@@ -1,30 +1,36 @@
 package model.quotes.dao;
 
+import com.mongodb.client.model.Filters;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoCollection;
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import lombok.RequiredArgsConstructor;
 import model.quotes.rest.dto.Quote;
 
 import javax.inject.Singleton;
-import java.util.Arrays;
-import java.util.List;
+
 
 @Singleton
+@RequiredArgsConstructor
 public class QuoteMongoDAO implements QuoteDAO {
 
-    private static final List<Quote> quotes = Arrays.asList(
-        new Quote().setId(1L).setText("Don't leave for tomorrow what you can do today"),
-        new Quote().setId(2L).setText("At the beginning I was listening but..."),
-        new Quote().setId(3L).setText("A man has to do what a man has to do. - Conan the barbarian"),
-        new Quote().setId(4L).setText("Leave for tomorrow what you can do today because you might not have to do it at all")
-    );
+    private final MongoClient mongoClient;
 
 
     @Override
     public Maybe<Quote> findOne(Long id) {
-        return quotes
-            .stream()
-            .filter(quote -> quote.getId().equals(id))
-            .map(Maybe::just)
-            .findAny()
-            .orElse(Maybe.empty());
+
+        return Flowable.fromPublisher(
+            getQuoteCollection()
+                .find(Filters.eq("id", id))
+                .limit(1)
+        ).firstElement();
+    }
+
+    private MongoCollection<Quote> getQuoteCollection() {
+        return mongoClient
+                .getDatabase("model-quotes")
+                .getCollection("quotes", Quote.class);
     }
 }
