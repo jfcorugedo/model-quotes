@@ -1,6 +1,6 @@
 package model.quotes.dao;
 
-import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import io.reactivex.Flowable;
@@ -23,7 +23,7 @@ public class QuoteMongoDAO implements QuoteDAO {
 
         return Flowable.fromPublisher(
             getQuoteCollection()
-                .find(Filters.eq("id", id))
+                .find(eq("_id", id))
                 .limit(1)
         ).firstElement();
     }
