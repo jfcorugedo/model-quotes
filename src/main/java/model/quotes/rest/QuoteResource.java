@@ -24,6 +24,7 @@ public class QuoteResource {
         return quoteDAO
             .findOne(id)
             .map(HttpResponse::ok)
-            .toSingle(HttpResponse.notFound());
+            .toSingle(HttpResponse.notFound())
+            .onErrorReturn(error -> HttpResponse.serverError());
     }
 }
