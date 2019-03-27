@@ -60,6 +60,11 @@
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-discovery-client</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
       <artifactId>micronaut-inject-java</artifactId>
       <scope>provided</scope>
     </dependency>
