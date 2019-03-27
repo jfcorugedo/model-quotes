@@ -81,6 +81,13 @@ Finally, start the image, making sure though you have mongo and consul running o
 
 $ docker run --rm  -p 8080:8080 -e MONGO_HOST='host.docker.internal' -e CONSUL_HOST='host.docker.internal'  --name quotes model-quotes
 
+You will see somethig like that:
+
+    INFO  io.micronaut.runtime.Micronaut - Startup completed in 31ms. Server Running: http://07575142c3de:8080
+    INFO  i.m.d.registration.AutoRegistration - Registered service [model-quotes] with Consul
+    
+As you can see, the container starts in around 30ms.
+
 Then you can test the app:
 
     time curl localhost:8080/quotes/1
