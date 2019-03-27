@@ -17,7 +17,7 @@ RUN native-image --no-server \
                  -H:+ReportUnsupportedElementsAtRuntime \
                  -H:+AllowVMInspection \
                  --rerun-class-initialization-at-runtime='sun.security.jca.JCAUtil$CachedSecureRandomHolder',javax.net.ssl.SSLContext \
-                 --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder,io.netty.handler.codec.http.websocketx.WebSocket00FrameEncoder,io.netty.handler.ssl.util.ThreadLocalInsecureRandom \
+                 --delay-class-initialization-to-runtime=io.netty.handler.codec.http.HttpObjectEncoder,io.netty.handler.codec.http.websocketx.WebSocket00FrameEncoder,io.netty.handler.ssl.util.ThreadLocalInsecureRandom,com.sun.jndi.dns.DnsClient \
                  -H:-UseServiceLoaderFeature \
                  --allow-incomplete-classpath \
                  -H:Name=model-quotes \
