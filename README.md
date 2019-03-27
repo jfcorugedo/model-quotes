@@ -79,8 +79,14 @@ Run the script `docker-build.sh` and wait until docker creates the image.
 
 Finally, start the image, making sure though you have mongo and consul running on your computer:
 
+macOS:
 ```sh
 $ docker run --rm  -p 8080:8080 -e MONGO_HOST='host.docker.internal' -e CONSUL_HOST='host.docker.internal'  --name quotes model-quotes
+```
+
+Linux:
+```sh
+$ docker run --rm  --network host --name quotes model-quotes
 ```
 
 You will see somethig like that:
