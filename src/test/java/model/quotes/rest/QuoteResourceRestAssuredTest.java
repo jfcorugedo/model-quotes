@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.*;
 @MicronautTest
 public class QuoteResourceRestAssuredTest {
 
+    private static final String NEW_QUOTE_JSON = "{ \"text\": \"Easy peace!!\" }";
     @Inject
     private MongoClient mongoClient;
 
@@ -87,6 +88,22 @@ public class QuoteResourceRestAssuredTest {
             )
         .then()
             .statusCode(HttpStatus.NOT_FOUND.getCode());
+    }
+
+    @Test
+    public void insertNewQuote() {
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(NEW_QUOTE_JSON)
+            .when()
+            .post(
+                getQuotesPath()
+            )
+            .then()
+            .statusCode(HttpStatus.CREATED.getCode())
+            .body("id", not(isEmptyOrNullString()));
+
     }
 
     private String getQuotesPath() {

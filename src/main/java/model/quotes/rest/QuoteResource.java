@@ -25,4 +25,10 @@ public class QuoteResource {
             .toSingle(HttpResponse.notFound())
             .onErrorReturn(error -> HttpResponse.serverError());
     }
+
+    @Post
+    public Single<MutableHttpResponse<Quote>> insertOne(@Body Quote quote) {
+
+        return Single.just(HttpResponse.created(quote.setId("1234-1234-1234-1234")));
+    }
 }
