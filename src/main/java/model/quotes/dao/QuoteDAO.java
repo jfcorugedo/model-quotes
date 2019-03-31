@@ -5,5 +5,5 @@ import model.quotes.rest.dto.Quote;
 
 public interface QuoteDAO {
 
-    public Maybe<Quote> findOne(Long id);
+    public Maybe<Quote> findOne(String id);
 }

@@ -7,6 +7,6 @@ import lombok.experimental.Accessors;
 @Accessors( chain = true )
 public class Quote {
 
-    private Long id;
+    private String id;
     private String text;
 }

@@ -19,7 +19,7 @@ public class QuoteMongoDAO implements QuoteDAO {
 
 
     @Override
-    public Maybe<Quote> findOne(Long id) {
+    public Maybe<Quote> findOne(String id) {
 
         return Flowable.fromPublisher(
             getQuoteCollection()

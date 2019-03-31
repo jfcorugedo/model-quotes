@@ -32,10 +32,10 @@ public class QuoteResourceRestAssuredTest {
     private EmbeddedServer embeddedServer;
 
     private static final List<Quote> quotes = Arrays.asList(
-        new Quote().setId(1L).setText("Don't leave for tomorrow what you can do today"),
-        new Quote().setId(2L).setText("At the beginning I was listening but..."),
-        new Quote().setId(3L).setText("A man has to do what a man has to do. - Conan the barbarian"),
-        new Quote().setId(4L).setText("Leave for tomorrow what you can do today because you might not have to do it at all")
+        new Quote().setId("1").setText("Don't leave for tomorrow what you can do today"),
+        new Quote().setId("2").setText("At the beginning I was listening but..."),
+        new Quote().setId("3").setText("A man has to do what a man has to do. - Conan the barbarian"),
+        new Quote().setId("4").setText("Leave for tomorrow what you can do today because you might not have to do it at all")
     );
 
 
@@ -71,7 +71,7 @@ public class QuoteResourceRestAssuredTest {
             .then()
             .statusCode(HttpStatus.OK.getCode())
             .contentType(ContentType.JSON)
-            .body("id", equalTo(2))
+            .body("id", equalTo("2"))
             .and()
             .body("text", equalTo("At the beginning I was listening but..."));
     }
