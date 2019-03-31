@@ -137,6 +137,42 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.oracle.substratevm</groupId>
+      <artifactId>svm</artifactId>
+      <version>1.0.0-rc8</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>svm-hosted-native-linux-amd64</artifactId>
+          <groupId>com.oracle.substratevm</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>svm-hosted-native-darwin-amd64</artifactId>
+          <groupId>com.oracle.substratevm</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>graal-sdk</artifactId>
+          <groupId>org.graalvm.sdk</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>objectfile</artifactId>
+          <groupId>com.oracle.substratevm</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>pointsto</artifactId>
+          <groupId>com.oracle.substratevm</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>truffle-nfi</artifactId>
+          <groupId>org.graalvm.truffle</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>compiler</artifactId>
+          <groupId>org.graalvm.compiler</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut.test</groupId>
       <artifactId>micronaut-test-junit5</artifactId>
       <version>1.0.2</version>
