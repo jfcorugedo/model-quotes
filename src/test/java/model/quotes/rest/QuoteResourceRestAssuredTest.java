@@ -1,6 +1,7 @@
 package model.quotes.rest;
 
 import com.mongodb.reactivestreams.client.MongoClient;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
 import io.restassured.http.ContentType;
@@ -65,15 +66,10 @@ public class QuoteResourceRestAssuredTest {
             .accept(ContentType.JSON)
             .when()
             .get(
-                String.format(
-                    "%s://%s:%d/quotes/2",
-                    embeddedServer.getScheme(),
-                    embeddedServer.getHost(),
-                    embeddedServer.getPort()
-                )
+                getQuotesPath() + "2"
             )
             .then()
-            .statusCode(200)
+            .statusCode(HttpStatus.OK.getCode())
             .contentType(ContentType.JSON)
             .body("id", equalTo(2))
             .and()
@@ -85,16 +81,20 @@ public class QuoteResourceRestAssuredTest {
 
         given()
             .accept(ContentType.JSON)
-            .when()
+        .when()
             .get(
-                String.format(
-                    "%s://%s:%d/quotes/456",
-                    embeddedServer.getScheme(),
-                    embeddedServer.getHost(),
-                    embeddedServer.getPort()
-                )
+                getQuotesPath() + "456"
             )
-            .then()
-            .statusCode(404);
+        .then()
+            .statusCode(HttpStatus.NOT_FOUND.getCode());
+    }
+
+    private String getQuotesPath() {
+        return String.format(
+            "%s://%s:%d/quotes/",
+            embeddedServer.getScheme(),
+            embeddedServer.getHost(),
+            embeddedServer.getPort()
+        );
     }
 }
