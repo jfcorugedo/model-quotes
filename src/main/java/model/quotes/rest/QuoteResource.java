@@ -29,6 +29,9 @@ public class QuoteResource {
     @Post
     public Single<MutableHttpResponse<Quote>> insertOne(@Body Quote quote) {
 
-        return Single.just(HttpResponse.created(quote.setId("1234-1234-1234-1234")));
+        return quoteDAO
+            .insert(quote)
+            .map(insertedQuote -> HttpResponse.created(insertedQuote))
+            .onErrorReturn(error -> HttpResponse.serverError());
     }
 }
